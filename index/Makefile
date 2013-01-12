@@ -14,7 +14,8 @@ Korafle.cgi: Korafle_main.o $(LIBRARY_OBJECTS)
 	chmod g-w $@
 	chmod o-w $@
 	mkdir -p DocumentRoot
-	cp Korafle.cgi DocumentRoot
+	rm DocumentRoot/Dorafle.cgi
+	cp Korafle.cgi DocumentRoot/Dorafle.cgi
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
@@ -31,3 +32,4 @@ stop:
 
 clean:
 	rm -rf Koracle.cgi *.o
+

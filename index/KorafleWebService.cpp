@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
 
 void KorafleWebService::processQuery(const char*uri,const char*query){
@@ -64,6 +66,7 @@ void KorafleWebService::search(const char*uri,const char*query){
  * \see http://jsoncpp.sourceforge.net/
  */
 void KorafleWebService::push(const char*uri,const char*query){
+
 	cout<<"{\"message\": \"Thank you for your documents\" }"<<endl;
 
         //char*requestMethod=getenv("REQUEST_METHOD");
@@ -84,26 +87,53 @@ void KorafleWebService::push(const char*uri,const char*query){
 	reader.parse(postData,postData+contentLength-1,root,false);
 
 	string id="NULL";
+	bool gotIdentifier=false;
 
 	for(Json::ValueIterator i=root.begin();i!=root.end();i++){
 		string key=i.key().asString();
-		cout<<key<<endl;
+		//cout<<key<<endl;
 
 		Json::Value value=*i;
 
 		if(key=="id"){
 			id=value.asString();
+			gotIdentifier=true;
+			break;
+		}
+	}
 
-		}else if(key=="text"){
-			//indexMetaData(
+	if(!gotIdentifier)
+		return;
+
+	string qOperation="q";
+
+	for(Json::ValueIterator i=root.begin();i!=root.end();i++){
+		string key=i.key().asString();
+		//cout<<key<<endl;
+
+		Json::Value value=*i;
+
+		if(key=="text"){
+			vector<string> keyWords;
+			string content=value.asString();
+			tokenize(&content,&keyWords);
+
+			for(int i=0;i<(int)keyWords.size();i++)
+				indexMetaData(id.c_str(),qOperation.c_str(),keyWords[i].c_str());
 		}else{
+
+			const char*keyForIndexing=key.c_str();
+			for(Json::ValueIterator j=value.begin();j!=value.end();j++){
+				string word=(*j).asString();
+
+				indexMetaData(id.c_str(),keyForIndexing,word.c_str());
+			}
 
 		}
 
 #if DEBUG1
 		if(key=="id")
 			cout<<"id="<<id<<endl;
-#endif
 
 		if(value.isString()){
 			string content=value.asString();
@@ -115,8 +145,82 @@ void KorafleWebService::push(const char*uri,const char*query){
 			}
 			cout<<endl;
 		}
+#endif
 	}
 	
 	//node->debug();
 
+}
+
+void KorafleWebService::indexMetaData(const char*subject,const char*predicate,const char*object){
+
+	//cout<<"[KorafleWebService::indexMetaData] subject="<<subject<<" predicate="<<predicate<<" object="<<object<<endl;
+}
+
+void KorafleWebService::tokenize(string*content,vector<string>*array){
+
+	int first=0;
+	int current=first;
+	int maximum=content->length()-1;
+
+	while(1){
+		if(isWhiteSpace((*content)[current])){
+			
+			string word=content->substr(first,current-1-first+1);
+			array->push_back(word);
+
+			//cout<<" word="<<word<<endl;
+			//int nextWhiteSpace=getNextWhiteSpace(content->c_str(),current);
+
+			int lastWhiteSpace=getLastWhiteSpace(content->c_str(),current);
+
+			first=lastWhiteSpace+1;
+			current=first;
+
+		}
+
+		current++;
+
+		if(current==maximum)
+			break;
+	}
+	
+}
+
+int KorafleWebService::getNextWhiteSpace(const char*content,int current){
+	int l=strlen(content);
+
+	while(current<l&&!isWhiteSpace(content[current]))
+		current++;
+
+	return current;
+}
+
+int KorafleWebService::getLastWhiteSpace(const char*content,int current){
+	int l=strlen(content);
+
+	while(current<l&&isWhiteSpace(content[current]))
+		current++;
+
+	if(!isWhiteSpace(content[current]))
+		current--;
+
+	return current;
+}
+
+bool KorafleWebService::isWhiteSpace(char symbol){
+	return (symbol==' '
+		||symbol=='\t'
+		||symbol=='\n'
+		||symbol=='<'
+		||symbol=='>'
+		||symbol=='"'
+		||symbol=='\''
+		||symbol==','
+		||symbol=='.'
+		||symbol=='('
+		||symbol=='|'
+		||symbol=='/'
+		||symbol==')'
+		);
 }
