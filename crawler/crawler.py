@@ -63,12 +63,17 @@ def callback_artist(request):
     data = dict(json.loads(request.content))
     data['type'] = 'artist'
     print data['name']
+    index_data(data)
     #print trim_ends(data)
 
 def callback_album(request):
     data = dict(json.loads(request.content))
     data['type'] = 'album'
     print data['name']
+    index_data(data)
+
+def index_data(data):
+    requests.post('http://ec2-50-17-15-66.compute-1.amazonaws.com:11111/Korafle.cgi/push', data=data)
 
 def trim_ends(object):
     print type(object)
