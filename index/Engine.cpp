@@ -7,7 +7,7 @@
 using namespace std;
 
 #define OFFSET_MAGIC 0
-#define OFFSET_MEMORY 8
+#define OFFSET_MEMORY_HEAP 8
 #define OFFSET_PREDICATE 16
 
 #define OFFSET_MEMORY_START 24
@@ -20,11 +20,17 @@ using namespace std;
  */
 void Engine::indexMetaData(const char*subject,const char*predicate,const char*object){
 
-	uint64_t next=getNext();
+	cout<<" Subject= "<<subject;
+	cout<<" Predicate= "<<predicate;
+	cout<<" Object= "<<object;
+	cout<<endl;
 
-	if(next==OFFSET_MEMORY_START){
 
-		
+	if(m_array[OFFSET_PREDICATE]==OFFSET_NONE){
+
+		cout<<"Starting"<<endl;
+		uint64_t next=getNext();
+		uint64_t offsetInFile=getNextOffsetForPredicate();
 		Entry entry;
 		entry.build(PREDICATE,predicate);
 		int size=entry.getSize();
@@ -55,7 +61,7 @@ void Engine::open(){
 }
 
 void Engine::reset(){
-	setNext(OFFSET_MEMORY_START);
+	m_array[OFFSET_PREDICATE]=OFFSET_NONE;
 }
 
 
@@ -65,9 +71,14 @@ void Engine::close(){
 }
 
 uint64_t Engine::getNext(){
-	return m_array[OFFSET_MEMORY];
+	return m_array[OFFSET_MEMORY_HEAP];
 }
 
 void Engine::setNext(uint64_t value){
-	m_array[OFFSET_MEMORY]=value;
+	m_array[OFFSET_MEMORY_HEAP]=value;
+}
+
+uint64_t Engine::getNextOffsetForPredicate(){
+	if(getNext()==OFFSET_MEMORY_START)
+		return OFFSET_MEMORY_HEAP;
 }

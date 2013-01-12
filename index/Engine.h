@@ -15,6 +15,8 @@ class Engine{
 	void setNext(uint64_t value);
 	void reset();
 
+	uint64_t getNextOffsetForPredicate();
+
 public:
 	
 	void indexMetaData(const char*id,const char*key,const char*value);
