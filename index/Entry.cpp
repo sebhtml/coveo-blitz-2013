@@ -49,6 +49,8 @@ void Entry::write(char*m_array,uint64_t position){
 	int m_length;
 	char m_content[128];
 */
+	m_offset=position;
+
 	memcpy(m_array+position,&m_nextRight,sizeof(uint64_t));
 	position+=sizeof(uint64_t);
 	memcpy(m_array+position,&m_nextDown,sizeof(uint64_t));

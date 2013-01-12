@@ -119,9 +119,11 @@ void KorafleWebService::push(const char*uri,const char*query){
 
 	postData[contentLength]='\0';
 
+/*
 	ofstream joe("/tmp/joe");
 	joe<<postData;
 	joe.close();
+*/
 
 	Engine engine;
 	engine.open();
