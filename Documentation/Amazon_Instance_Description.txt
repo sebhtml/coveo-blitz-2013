@@ -1,0 +1,11 @@
+M1 Large Instance
+
+7.5 GiB memory
+4 EC2 Compute Units (2 virtual cores with 2 EC2 Compute Units each)
+850 GB instance storage
+64-bit platform
+I/O Performance: High
+EBS-Optimized Available: 500 Mbps
+API name: m1.large
+
+http://aws.amazon.com/ec2/instance-types/

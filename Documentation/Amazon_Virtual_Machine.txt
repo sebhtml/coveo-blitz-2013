@@ -1,0 +1,28 @@
+Date: Sat, 12 Jan 2013 07:26:43 -0500
+From: coveoblitz <coveoblitz@coveo.com>
+To: Pascal Germain <Pascal.Germain@ift.ulaval.ca>, Brice Zirakiza <brice.zirakiza.1@ulaval.ca>, Sébastien Boisvert <sebastien.boisvert.3@ulaval.ca>,
+       	Alexandre Drouin <alexandre.drouin.8@ulaval.ca>
+Subject: VM Infos
+
+[-- Attachment #1 --]
+[-- Type: text/html, Encoding: quoted-printable, Size: 2.5K --]
+
+[-- Autoview using w3m -I 'iso-8859-1' -T text/html -dump '/tmp/mutt.html' --]
+DataWebService
+
+ec2-204-236-255-208.compute-1.amazonaws.com
+
+
+
+VM pour déployer l'application
+
+ec2-50-17-15-66.compute-1.amazonaws.com (linux)
+
+
+
+
+[-- Attachment #2: blitz-team-j.pem --]
+[-- Type: application/octet-stream, Encoding: base64, Size: 2.2K --]
+
+[-- application/octet-stream is unsupported (use 'v' to view this part) --]
+
