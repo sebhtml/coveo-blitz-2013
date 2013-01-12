@@ -5,7 +5,7 @@ from multiprocessing import Process, Pool
 from itertools import count
 
 data_service = 'http://ec2-204-236-255-208.compute-1.amazonaws.com:8080/BlitzDataWebService/'
-
+count = 0
 
 def start_run(run_id):
     requests.get(data_service + 'evaluationRun/start', params={'runId':run_id})
@@ -61,41 +61,35 @@ def crawl_albums():
 
 def callback_artist(request):
     data = dict(json.loads(request.content))
-    data['type'] = 'artist'
-    print data['name']
+    data['type'] = u'artist'
+    data = trim_ends(data)
     index_data(data)
-    #print trim_ends(data)
+    print data['name']
 
 def callback_album(request):
     data = dict(json.loads(request.content))
-    data['type'] = 'album'
-    print data['name']
+    data['type'] = u'album'
+    data = trim_ends(data)
     index_data(data)
+    print data['name']
 
 def index_data(data):
     requests.post('http://ec2-50-17-15-66.compute-1.amazonaws.com:11111/Korafle.cgi/push', data=data)
+    #count += 1
 
 def trim_ends(object):
-    print type(object)
-    if object == '':
-        return ''
-    elif type(u'zz') == type(object):
-        print 'str'
-        return str(object).strip()
-    elif type([]) == type(object):
-        print 'list'
+    if unicode == type(object):
+        return unicode(object).strip()
+    elif list == type(object):
         new_list = []
         for o in object:
             new_list.append(trim_ends(o))
         return new_list
-    elif type({}) == type(object):
-        print 'dict'
+    elif dict == type(object):
         new_dict = {}
         for key in object.keys():
             new_dict[key] = trim_ends(object[key])
         return new_dict
-    else:
-        print 'BASFSAD'
 
 
 if __name__ == "__main__":
