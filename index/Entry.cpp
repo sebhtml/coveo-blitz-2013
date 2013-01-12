@@ -10,7 +10,8 @@ void Entry::build(int type,const char*content){
 	m_type=type;
 	strcpy(m_content,content);
 	m_length=strlen(m_content);
-	m_next=OFFSET_NONE;
+	m_nextRight=OFFSET_NONE;
+	m_nextDown=OFFSET_NONE;
 }
 
 void Entry::read(const char*m_array,uint64_t position){
@@ -21,7 +22,11 @@ void Entry::read(const char*m_array,uint64_t position){
 	int m_length;
 	char m_content[128];
 */
-	memcpy(&m_next,m_array+position,sizeof(uint64_t));
+	m_offset=position;
+
+	memcpy(&m_nextRight,m_array+position,sizeof(uint64_t));
+	position+=sizeof(uint64_t);
+	memcpy(&m_nextDown,m_array+position,sizeof(uint64_t));
 	position+=sizeof(uint64_t);
 	memcpy(&m_type,m_array+position,sizeof(int));
 	position+=sizeof(int);
@@ -30,6 +35,7 @@ void Entry::read(const char*m_array,uint64_t position){
 	memcpy(m_content,m_array+position,m_length*sizeof(char));
 	
 	m_content[m_length]='\0';
+
 }
 
 
@@ -43,7 +49,9 @@ void Entry::write(char*m_array,uint64_t position){
 	int m_length;
 	char m_content[128];
 */
-	memcpy(m_array+position,&m_next,sizeof(uint64_t));
+	memcpy(m_array+position,&m_nextRight,sizeof(uint64_t));
+	position+=sizeof(uint64_t);
+	memcpy(m_array+position,&m_nextDown,sizeof(uint64_t));
 	position+=sizeof(uint64_t);
 	memcpy(m_array+position,&m_type,sizeof(int));
 	position+=sizeof(int);
@@ -56,12 +64,16 @@ void Entry::write(char*m_array,uint64_t position){
 }
 
 int Entry::getSize(){
-	return sizeof(uint64_t)+2*sizeof(int)+m_length*sizeof(char);
+	return 2*sizeof(uint64_t)+2*sizeof(int)+m_length*sizeof(char);
 }
 
 
-uint64_t Entry::getNext(){
-	return m_next;
+uint64_t Entry::getNextRight(){
+	return m_nextRight;
+}
+
+uint64_t Entry::getNextDown(){
+	return m_nextDown;
 }
 
 int Entry::getType(){
@@ -76,8 +88,17 @@ char*Entry::getContent(){
 	return m_content;
 }
 
-void Entry::setNext(uint64_t value){
+void Entry::setNextRight(uint64_t value){
 	//cout<<"Entry/setNext"<<endl;
-	m_next=value;
+	m_nextRight=value;
 }
 
+void Entry::setNextDown(uint64_t value){
+	//cout<<"Entry/setNext"<<endl;
+	m_nextDown=value;
+}
+
+uint64_t Entry::getOffset(){
+
+	return m_offset;
+}
