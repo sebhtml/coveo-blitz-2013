@@ -65,9 +65,9 @@ void KorafleWebService::search(const char*uri,const char*query){
 
 	int NB_FACETS = 3;
 	int NB_KEYS   = 4;
-	int NB_DOC 	  = 10
+	int NB_DOC 	  = 10;
 
-	cout<<"{"
+	cout<<"{";
 
 	cout << "\"facets\":{";
 
@@ -87,7 +87,7 @@ void KorafleWebService::search(const char*uri,const char*query){
 
 	int NB_RESULTS = 15;
 
-	cout << "}, \"results\": [ "
+	cout << "}, \"results\": [ ";
 
 	for (int i = 0; i < NB_RESULTS; ++i)
 	{

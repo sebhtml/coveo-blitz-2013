@@ -1,6 +1,7 @@
 
 #include "Mapper.h"
 #include <stdint.h>
+#include "Entry.h"
 
 #include <string>
 using namespace std;
@@ -18,6 +19,9 @@ class Engine{
 	uint64_t getNextOffsetForPredicate();
 
 	void addPredicate(uint64_t offset,const char*predicate,uint64_t parentOffset);
+	void fetchPredicate(Entry*entry,const char*predicate);
+	uint64_t findPredicate(const char*predicate);
+	void addPredicateInFile(const char*predicate);
 public:
 	
 	void indexMetaData(const char*id,const char*key,const char*value);

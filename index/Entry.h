@@ -1,4 +1,7 @@
 
+#ifndef _Entry
+#define _Entry
+
 #define SUBJECT 0
 #define PREDICATE 1
 #define OBJECT 3
@@ -27,3 +30,5 @@ public:
 	void setNext(uint64_t value);
 
 };
+
+#endif

@@ -29,6 +29,7 @@ void Entry::read(const char*m_array,uint64_t position){
 	position+=sizeof(int);
 	memcpy(m_content,m_array+position,m_length*sizeof(char));
 	
+	m_content[m_length]='\0';
 }
 
 
@@ -49,7 +50,9 @@ void Entry::write(char*m_array,uint64_t position){
 	memcpy(m_array+position,&m_length,sizeof(int));
 	position+=sizeof(int);
 	memcpy(m_array+position,m_content,m_length*sizeof(char));
-	
+	position+=m_length;
+
+	m_array[position]='\0';
 }
 
 int Entry::getSize(){
