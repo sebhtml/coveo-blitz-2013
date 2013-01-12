@@ -32,7 +32,7 @@
     <div id="middle">
       <div class="middle align-center container-fluid row-fluid">
         <p class="app-welcome">
-          <form class="form-search pagination-centered" id="form" action="/search" method="GET">
+          <form class="form-search pagination-centered" id="form" action="/search/" method="GET">
               <input type="text" class="input-medium search-query ui-widget" style="width:500px;" name="search" placeholder="Search by: Artist, Albums, Genre, ..." id="search" >
                <a href="#" class="btn btn-primary" type="submit">Search</a>
           </form>
@@ -40,132 +40,9 @@
       </div>
     </div>
       <div class="container">
-          <section class="row">
-
-
-
-
-              <aside class=span3>
-                  <div style="height: 100px;"></div>
-                   <!---- Partie pour les facettes ------------------------------------------>
-                  <div class="accordion" id="accordion1">
-                      <div class="accordion-group">
-                          <div class="accordion-heading">
-                              <a class="accordion-toggle" data-parent="#accordion1" data-toggle="collapse" href="#panel1"><i class="icon-chevron-right"></i>Panel 1</a>
-                          </div>
-                          <div class="accordion-body collapse" id="panel1">
-                              <div class="accordion-inner">
-                                  <p>This is accordion panel 1 content</p>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="accordion-group">
-                          <div class="accordion-heading">
-                              <a class="accordion-toggle" data-parent="#accordion1" data-toggle="collapse" href="#panel2"><i class="icon-chevron-right"></i>Panel 2</a>
-                          </div>
-                          <div class="accordion-body collapse" id="panel2">
-                              <div class="accordion-inner">
-                                  <p>This is accordion panel 2 content</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </aside>
-
-
-
-
-
-              <article class="span9">
-                  <nav id="primary-navigation" class="row">
-                      <!--<div class="span9 tabbable">
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a href="#tab1" data-toggle="tab">Home</a></li>
-                              <li><a href="#tab2" data-toggle="tab">Features</a></li>
-                              <li><a href="#tab3" data-toggle="tab">About</a></li>
-                              <li><a href="#tab4" data-toggle="tab">Contact Us</a></li>
-                          </ul>
-                      </div>-->
-                      <div style="height: 70px;"></div>
-                  </nav>
-                  <ul class="thumbnails">
-                      <li class="span9">
-                          <div class="row">
-                          <div class="span3">
-                              <figure >
-                                  <div style="margin-top: 0px;">
-                                      <img src="http://placehold.it/300x200" alt="3 column placeholder" width="200" style="margin-top:0;" />
-                                  </div>
-                              </figure>
-                            </div>
-
-                              <div class="span6" style="margin-top:20px; margin-left: -15px;">
-                                  <h5>Image 3 title</h5>
-                                  <p>This is a short caption. It contains some technical language like
-                                      domain-specific terms like
-                                      <br/>
-                                      <a href="#"
-                                                                    class="tooltips"
-                                                                    data-placement="top"
-                                                                    data-trigger="hover"
-                                                                    data-title="HTML: Hyper Text Markup Language"
-                                              >HTML</a></p>
-
-                              </div>
-
-
-
-                           </div>
-
-                      </li>
-
-                  </ul>
-                  <ul class="thumbnails">
-                      <li class="span9">
-                          <div class="row">
-                              <div class="span3">
-                                  <figure >
-                                      <div style="margin-top: 0px;">
-                                          <img src="http://placehold.it/300x200" alt="3 column placeholder" width="200" style="margin-top:0;" />
-                                      </div>
-                                  </figure>
-                              </div>
-
-                              <div class="span6" style="margin-top:20px; margin-left: -15px;">
-                                  <h5>Image 3 title</h5>
-                                  <p>This is a short caption. It contains some technical language like
-                                      domain-specific terms like
-                                      <br/>
-                                      <a href="#"
-                                         class="tooltips"
-                                         data-placement="top"
-                                         data-trigger="hover"
-                                         data-title="HTML: Hyper Text Markup Language"
-                                              >HTML</a></p>
-
-                              </div>
-
-
-
-                          </div>
-
-                      </li>
-
-                  </ul>
-                  <div class="pagination span9" style="margin-bottom: 100px;">
-                      <ul>
-                          <li><a href="#">&laquo;</a></li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">2</a></li>
-                          <li><a href="#">3</a></li>
-                          <li><a href="#">4</a></li>
-                          <li><a href="#">&raquo;</a></li>
-                      </ul>
-                  </div>
-
-              </article>
-
-          </section>
+        <p align='center'>
+          <img src='http://www.animationplayhouse.com/dancing_giraffees.gif' style='padding-top:10%'>
+        </p>
       </div>
   </div>
   <div id="footer">
