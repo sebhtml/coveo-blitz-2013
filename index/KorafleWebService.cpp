@@ -3,8 +3,9 @@
  */
 
 #include "KorafleWebService.h"
-#include "JSONParser.h"
 
+#include <jsoncpp/json/json.h>
+#include <fstream>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -59,6 +60,9 @@ void KorafleWebService::search(const char*uri,const char*query){
 	cout<<"{  }"<<endl;
 }
 
+/**
+ * \see http://jsoncpp.sourceforge.net/
+ */
 void KorafleWebService::push(const char*uri,const char*query){
 	cout<<"{\"message\": \"Thank you for your documents\" }"<<endl;
 
@@ -68,8 +72,17 @@ void KorafleWebService::push(const char*uri,const char*query){
         char*postData=(char*)malloc(contentLength+1);
         size_t values=fread(postData,1,contentLength,stdin);
 
-	cout<<values<<endl;
+	values++;
 
-	JSONParser parser;
+	postData[contentLength]='\0';
+
+	//cout<<postData<<endl;
+
+	Json::Reader reader;
+	Json::Value root;   // will contains the root value after parsing.
 	
+	reader.parse(postData,postData+contentLength-1,root,false);
+	
+	//node->debug();
+
 }

@@ -7,10 +7,10 @@ TARGETS=Korafle.cgi
 
 Korafle.cgi: 
 
-LIBRARY_OBJECTS=KorafleWebService.o Mapper.o JSONParser.o JSONNode.o
+LIBRARY_OBJECTS=KorafleWebService.o Mapper.o
 
 Korafle.cgi: Korafle_main.o $(LIBRARY_OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o $@
+	$(CXX) $(CXXFLAGS) $^ -o $@ -l jsoncpp
 	chmod g-w $@
 	chmod o-w $@
 	mkdir -p DocumentRoot
@@ -29,3 +29,5 @@ restart:
 stop:
 	apache2 -f $(config) -k stop
 
+clean:
+	rm -rf Koracle.cgi *.o
