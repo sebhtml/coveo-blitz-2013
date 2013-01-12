@@ -22,6 +22,12 @@ class Engine{
 	void fetchPredicate(Entry*entry,const char*predicate);
 	uint64_t findPredicate(const char*predicate);
 	void addPredicateInFile(const char*predicate);
+
+	void fetchObject(Entry*predicateEntry,Entry*entry,const char*object);
+	uint64_t findObject(Entry*predicateEntry,const char*object);
+	void addObjectInFile(Entry*predicateEntry,const char*predicate);
+
+	void addObject(uint64_t offset,const char*object);
 public:
 	
 	void indexMetaData(const char*id,const char*key,const char*value);
