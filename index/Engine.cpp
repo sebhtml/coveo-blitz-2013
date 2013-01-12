@@ -17,7 +17,7 @@ using namespace std;
 
 #define BUSY_NO 0
 #define BUSY_YES 1
-#define BUSY_DELAY 10
+#define BUSY_DELAY 10000
 
 
 /*
@@ -31,12 +31,12 @@ using namespace std;
  * 
  */
 void Engine::indexMetaData(const char*subject,const char*predicate,const char*object){
-/*
-TODO: busy waiting
-	while(m_array[OFFSET_BUSY]==BUSY_YES){
+
+	while(read64Integer(OFFSET_BUSY)==BUSY_YES){
 		usleep(BUSY_DELAY);
 	}
-*/
+
+	write64Integer(OFFSET_BUSY,BUSY_YES);
 			
 	cout<<endl;
 	cout<<"indexMetaData Subject= "<<subject;
@@ -54,6 +54,8 @@ TODO: busy waiting
 	fetchSubject(&objectEntry,&subjectEntry,object);
 
 	cout<<"Subject offset: "<<subjectEntry.getOffset()<<endl;
+
+	write64Integer(OFFSET_BUSY,BUSY_NO);
 }
 
 uint64_t Engine::findSubject(Entry*objectEntry,const char*subject){
@@ -366,8 +368,6 @@ void Engine::addPredicateInFile(const char*predicate){
 void Engine::open(){
 
 	m_file="/mnt/block";
-	//m_file="/mnt/block-debug";
-	
 
 	m_mapper.enableReadOperations();
 	m_mapper.enableWriteOperations();
@@ -380,7 +380,7 @@ void Engine::open(){
 	
 	//cout<<"Size= "<<m_bytes<<endl;
 
-	reset();
+	//reset();
 }
 
 void Engine::reset(){

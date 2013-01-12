@@ -14,7 +14,6 @@ class Engine{
 
 	uint64_t getHeap();
 	void setHeap(uint64_t value);
-	void reset();
 
 	uint64_t getNextOffsetForPredicate();
 
@@ -42,4 +41,5 @@ public:
 	uint64_t read64Integer(uint64_t offset);
 	void write64Integer(uint64_t offset,uint64_t value);
 
+	void reset();
 };

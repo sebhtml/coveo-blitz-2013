@@ -38,6 +38,7 @@ or
 
 // /Korafle.cgi/search
 // /Korafle.cgi/push
+// /Korafle.cgi/reset
 
 	int operationPosition=13;
 
@@ -57,11 +58,59 @@ or
 		search(uri,query);
 	else if(operationCode=='p')
 		push(uri,query);
+	else if(operationCode=='r')
+		reset(uri,query);
 }
 
 #include <map>
 
+bool KorafleWebService::getValue(const char*query,const char*name,char*value,int maximumValueLength){
+	for(int i=0;i<(int)strlen(query);i++){
+		bool match=true;
+
+		//cout<<"Query+i: "<<query+i<<endl;
+		//cout<<"Name:    "<<name<<endl;
+
+		for(int j=0;j<(int)strlen(name);j++){
+			if(query[i+j]!=name[j]){
+				match=false;
+				break;
+			}
+		}
+
+		//cout<<"Match: "<<match<<endl;
+
+		if(match){
+			int startingPosition=i+strlen(name)+1;
+			int endingPosition=startingPosition;
+			while(endingPosition<(int)strlen(query)){
+				if(query[endingPosition]=='&')
+					break;
+				endingPosition++;
+			}
+			int count=endingPosition-startingPosition;
+
+/* somebody is trying to break in */
+
+			if(count>maximumValueLength)
+				return false;
+
+			//cout<<"Value= "<<query+startingPosition<<endl;
+			//cout<<"Count= "<<count<<endl;
+
+			memcpy(value,query+startingPosition,count);
+			value[count]='\0';
+
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+
 void KorafleWebService::search(const char*uri,const char*query){
+	
 
 	int NB_FACETS = 3;
 	int NB_KEYS   = 4;
@@ -270,4 +319,12 @@ bool KorafleWebService::isWhiteSpace(char symbol){
 		||symbol=='/'
 		||symbol==')'
 		);
+}
+
+void KorafleWebService::reset(const char*uri,const char*query){
+	cout<<"Reset"<<endl;
+	Engine engine;
+	engine.open();
+	engine.reset();
+	engine.close();
 }

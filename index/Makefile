@@ -16,6 +16,7 @@ Korafle.cgi: Korafle_main.o $(LIBRARY_OBJECTS)
 	mkdir -p DocumentRoot
 	rm DocumentRoot/Dorafle.cgi
 	cp Korafle.cgi DocumentRoot/Dorafle.cgi
+	cp Korafle.cgi DocumentRoot/Korafle.cgi
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
