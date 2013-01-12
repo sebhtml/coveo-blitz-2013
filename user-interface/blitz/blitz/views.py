@@ -8,7 +8,8 @@ _data = 'http://ec2-204-236-255-208.compute-1.amazonaws.com:8080'
 _images = _data+'/BlitzDataWebService/images/'
 
 
-_tmp = '{"facets": {"origin": {"Georgia": 1,"White Plains": 1},"type": {"albums": 32,"artists": 19},"genres": {"Alternative rock": 2,"Pop rock": 1,"Indie rock": 1}},"results": [{"id": "011_x9"} ]}'
+#_tmp = '{"facets": {"origin": {"Georgia": 1,"White Plains": 1},"type": {"albums": 32,"artists": 19},"genres": {"Alternative rock": 2,"Pop rock": 1,"Indie rock": 1}},"results": [{"id": "011_x9"} ]}'
+_tmp = '{"facets":{"FACET_0_NAME": {"KEY_0_NAME":10,"KEY_1_NAME":10,"KEY_2_NAME":10,"KEY_3_NAME":10},"FACET_1_NAME": {"KEY_0_NAME":10,"KEY_1_NAME":10,"KEY_2_NAME":10,"KEY_3_NAME":10},"FACET_2_NAME": {"KEY_0_NAME":10,"KEY_1_NAME":10,"KEY_2_NAME":10,"KEY_3_NAME":10}}, "results": [ {"id":0","text":"Document description"},{"id":1","text":"Document description"},{"id":2","text":"Document description"},{"id":3","text":"Document description"},{"id":4","text":"Document description"},{"id":5","text":"Document description"},{"id":6","text":"Document description"},{"id":7","text":"Document description"},{"id":8","text":"Document description"},{"id":9","text":"Document description"},{"id":10","text":"Document description"},{"id":11","text":"Document description"},{"id":12","text":"Document description"},{"id":13","text":"Document description"},{"id":14","text":"Document description"}]}'
 
 
 @view_config(route_name='home', renderer='templates/mytemplate.pt')

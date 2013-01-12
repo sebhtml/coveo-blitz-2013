@@ -59,8 +59,47 @@ or
 		push(uri,query);
 }
 
+#include <map>
+
 void KorafleWebService::search(const char*uri,const char*query){
-	cout<<"{  }"<<endl;
+
+	int NB_FACETS = 3;
+	int NB_KEYS   = 4;
+	int NB_DOC 	  = 10
+
+	cout<<"{"
+
+	cout << "\"facets\":{";
+
+	for (int i = 0; i < NB_FACETS; ++i)
+	{
+		if (i > 0) cout << ",";
+		cout << "\"FACET_" << i << "_NAME\": {";
+
+		for (int j = 0; j < NB_KEYS; ++j)
+		{
+			if (j > 0) cout << ",";
+			cout << "\"KEY_" << j << "_NAME\":" <<  NB_DOC ;
+		}
+
+		cout << "}";
+	}
+
+	int NB_RESULTS = 15;
+
+	cout << "}, \"results\": [ "
+
+	for (int i = 0; i < NB_RESULTS; ++i)
+	{
+		int DOC_ID = i; //!!! A changer!
+		string DOC_TEXT = "Document description";
+		if (i > 0) cout << ",";
+		cout << "{\"id\":" << DOC_ID << ",\"text\":\"" << DOC_TEXT << "\"}";
+	}
+
+	cout << "]";
+
+	cout << "}"<<endl;
 }
 
 /**
