@@ -55,10 +55,13 @@ void*Mapper::mapFile(const char*file){
 	if(m_mapped)
 		return m_content;
 
-	#ifdef OS_POSIX
+	#if 1
 
 	if(m_write && m_read){
 		m_protection=PROT_READ|PROT_WRITE;
+
+		cout<<"Protection read+write"<<endl;
+
 	}else if(m_write){
 		m_protection=PROT_WRITE;
 	}else if(m_read){
@@ -69,7 +72,11 @@ void*Mapper::mapFile(const char*file){
 
 	m_file=file;
 
-	m_stream=open(m_file,O_RDONLY);
+	if(!m_write)
+		m_stream=open(m_file,O_RDONLY);
+	else
+		m_stream=open(m_file,O_RDWR);
+
 	m_fileSize=lseek(m_stream,0,SEEK_END);
 	
 	m_flags=MAP_SHARED;
