@@ -10,7 +10,6 @@ class KorafleWebService{
 
 	void search(const char*uri,const char*query);
 	void push(const char*uri,const char*query);
-	void indexMetaData(const char*id,const char*key,const char*value);
 	void tokenize(string*content,vector<string>*array);
 
 	bool isWhiteSpace(char symbol);

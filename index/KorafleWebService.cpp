@@ -3,6 +3,7 @@
  */
 
 #include "KorafleWebService.h"
+#include "Engine.h"
 
 #include <jsoncpp/json/json.h>
 #include <fstream>
@@ -79,6 +80,10 @@ void KorafleWebService::push(const char*uri,const char*query){
 
 	postData[contentLength]='\0';
 
+
+	Engine engine;
+	engine.open();
+
 	//cout<<postData<<endl;
 
 	Json::Reader reader;
@@ -107,6 +112,7 @@ void KorafleWebService::push(const char*uri,const char*query){
 
 	string qOperation="q";
 
+
 	for(Json::ValueIterator i=root.begin();i!=root.end();i++){
 		string key=i.key().asString();
 		//cout<<key<<endl;
@@ -119,14 +125,14 @@ void KorafleWebService::push(const char*uri,const char*query){
 			tokenize(&content,&keyWords);
 
 			for(int i=0;i<(int)keyWords.size();i++)
-				indexMetaData(id.c_str(),qOperation.c_str(),keyWords[i].c_str());
+				engine.indexMetaData(id.c_str(),qOperation.c_str(),keyWords[i].c_str());
 		}else{
 
 			const char*keyForIndexing=key.c_str();
 			for(Json::ValueIterator j=value.begin();j!=value.end();j++){
 				string word=(*j).asString();
 
-				indexMetaData(id.c_str(),keyForIndexing,word.c_str());
+				engine.indexMetaData(id.c_str(),keyForIndexing,word.c_str());
 			}
 
 		}
@@ -147,14 +153,11 @@ void KorafleWebService::push(const char*uri,const char*query){
 		}
 #endif
 	}
+
+	engine.close();
 	
 	//node->debug();
 
-}
-
-void KorafleWebService::indexMetaData(const char*subject,const char*predicate,const char*object){
-
-	//cout<<"[KorafleWebService::indexMetaData] subject="<<subject<<" predicate="<<predicate<<" object="<<object<<endl;
 }
 
 void KorafleWebService::tokenize(string*content,vector<string>*array){
