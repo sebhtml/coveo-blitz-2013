@@ -541,41 +541,37 @@ void Engine::write64Integer(uint64_t offset,uint64_t value){
 	memcpy(m_array+offset,&value,sizeof(uint64_t));
 }
 
-void Engine::search(const char*predicate,const char*object){
+void Engine::search(const char*predicate,const char*object,vector<string>*subjects){
 
-	cout<<"[Engine::search]"<<endl;
+	//cout<<"[Engine::search]"<<endl;
 
 	Entry predicateEntry;
 	if(!fetchPredicate(&predicateEntry,predicate,false)){
-		cout<<"No Predicate found!"<<endl;
+		//cout<<"No Predicate found!"<<endl;
 		return;
 	}
 
-	cout<<"Predicate: "<<predicateEntry.getContent()<<endl;
+	//cout<<"Predicate: "<<predicateEntry.getContent()<<endl;
 
 	Entry objectEntry;
 	if(!fetchObject(&predicateEntry,&objectEntry,object,false)){
-		cout<<"No object found!"<<endl;
+		//cout<<"No object found!"<<endl;
 		return;
 	}
 
-	cout<<"Object: "<<objectEntry.getContent()<<endl;
+	vector<Entry> subjectEntries;
+	//cout<<"Object: "<<objectEntry.getContent()<<endl;
 
-	vector<Entry> subjects;
-	
-	getSubjects(&objectEntry,&subjects);
+	getSubjects(&objectEntry,&subjectEntries);
 
-	if(subjects.size()==0)
-		cout<<"No subject found!"<<endl;
-
-	for(int i=0;i<(int)subjects.size();i++){
-		cout<<"Subject -> "<<subjects[i].getContent()<<endl;
+	for(int i=0;i<(int)subjectEntries.size();i++){
+		subjects->push_back(subjectEntries[i].getContent());
 	}
 }
 
 void Engine::getSubjects(Entry*objectEntry,vector<Entry>*subjects){
 	
-	cout<<"getSubjects"<<endl;
+	//cout<<"getSubjects"<<endl;
 	uint64_t offset=objectEntry->getNextDown();
 
 	while(offset!=OFFSET_NONE){

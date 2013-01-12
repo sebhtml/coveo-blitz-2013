@@ -3,11 +3,15 @@ CXXFLAGS= -O3 -Wall -march=native -pipe -std=c++98
 #CXXFLAGS=-O0 -g -D CONFIG_ASSERT -Wall -std=c++98
 config=/home/seb/coveo-blitz-2013/index/001-Apache.conf
 
-TARGETS=Korafle.cgi
+TARGETS=Korafle.cgi Search
 
-Korafle.cgi: 
+all: Korafle.cgi
 
 LIBRARY_OBJECTS=KorafleWebService.o Mapper.o Engine.o Entry.o
+
+Search: search_main.o $(LIBRARY_OBJECTS)
+	$(CXX) $(CXXFLAGS) $^ -o $@ -l jsoncpp
+
 
 Korafle.cgi: Korafle_main.o $(LIBRARY_OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@ -l jsoncpp
@@ -16,7 +20,7 @@ Korafle.cgi: Korafle_main.o $(LIBRARY_OBJECTS)
 	mkdir -p DocumentRoot
 	rm DocumentRoot/Dorafle.cgi
 	cp Korafle.cgi DocumentRoot/Dorafle.cgi
-	cp Korafle.cgi DocumentRoot/Korafle.cgi
+	#cp Korafle.cgi DocumentRoot/Korafle.cgi
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@

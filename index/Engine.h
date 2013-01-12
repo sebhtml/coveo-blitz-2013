@@ -44,5 +44,5 @@ public:
 
 	void reset();
 
-	void search(const char*key,const char*value);
+	void search(const char*key,const char*value,vector<string>*subjects);
 };
