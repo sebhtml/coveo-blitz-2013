@@ -1,0 +1,4 @@
+http://ec2-204-236-255-208.compute-1.amazonaws.com:8080/BlitzDataWebService/evaluationRun/start?runId=PeeWee
+http://ec2-204-236-255-208.compute-1.amazonaws.com:8080/BlitzDataWebService/evaluationRun/stop 
+
+
