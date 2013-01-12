@@ -30,6 +30,8 @@ restart:
 
 stop:
 	apache2 -f $(config) -k stop
+	killall -9 Korafle.cgi
+	killall -9 Dorafle.cgi
 
 clean:
 	rm -rf Koracle.cgi *.o
