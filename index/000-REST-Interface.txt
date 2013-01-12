@@ -1,0 +1,33 @@
+## Search
+
+GET /Korafle.cgi/search?q=Salut HTTP/1.1
+Accept: application/json
+Content-Type: application/json; charset=utf-8
+Host: 192.168.12.34
+User-Agent: Coveo
+
+
+# Parameters:
+
+* %20 est un espace
+* Opérateur OR
+* Opérateur AND par défaut
+* Not sensible to case
+
+q=<keyWords>
+
+<metaDataKey>=<metaDataValue>
+
+
+Decision: q is just a meta data too, for key words
+q is indexed from tokenized texts
+metaData is indexed from JSON stuff
+
+metaData type=album|artist
+
+
+## Index
+
+POST
+
+/Korafle.cgi/push HTTP/1.1
