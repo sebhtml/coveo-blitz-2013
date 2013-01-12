@@ -35,7 +35,7 @@ def gen_facets(D):
         FACES += '<ul>'
             
         for nom,  nb in fval.iteritems():
-            FACES += '<li> ' + nom + ' (' + str(nb) + ')  </li>'
+            FACES += '<li> ' + "<a href=\"#\">" +  nom + ' (' + str(nb) + ')  </li>'
             #print nom
             #print nb
                 
