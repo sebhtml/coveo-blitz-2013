@@ -1,0 +1,3 @@
+sudo useradd -d /home/testuser -m testuser
+sudo passwd testuser
+
