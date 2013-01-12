@@ -6,7 +6,7 @@ from time import time
 
 data_service = 'http://ec2-204-236-255-208.compute-1.amazonaws.com:8080/BlitzDataWebService/'
 max_retries = 10
-timeout = 2
+timeout = 15
 
 def get_artist(id):
     for i in xrange(max_retries):
@@ -19,7 +19,7 @@ def get_artist(id):
     data['type'] = u'artist'
     data = trim_ends(data)
     index_data(data)
-    #print data['name']
+#    print data['name']
 
 def get_album(id):
     for i in xrange(max_retries):
@@ -32,7 +32,7 @@ def get_album(id):
     data['type'] = u'album'
     data = trim_ends(data)
     index_data(data)
-    #print data['name']
+    #   print data['name']
 
 def crawl_artists():
     page_size = 100
