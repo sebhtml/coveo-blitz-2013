@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal">
 <head>
   <title>:::Covenisol Music Search:::</title>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
@@ -8,19 +9,22 @@
   <link rel="shortcut icon" href="${request.static_url('blitz:static/favicon.ico')}" />
   <link rel="stylesheet" href="${request.static_url('blitz:static/bootstrap/css/bootstrap.css')}" type="text/css" media="screen" title="master" charset="utf-8">
   <link rel="stylesheet" href="${request.static_url('blitz:static/bootstrap/css/jquery-ui.css')}" type="text/css" media="screen" title="master" charset="utf-8">
-  <link rel="stylesheet" href="${request.static_url('blitz:static/bootstrap/')}" type="text/css" media="screen" charset="utf-8" />
-    <link rel="stylesheet" href="${request.static_url('blitz:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="${request.static_url('blitz:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
   <link rel="stylesheet" href="http://static.pylonsproject.org/fonts/nobile/stylesheet.css" media="screen" />
   <link rel="stylesheet" href="http://static.pylonsproject.org/fonts/neuton/stylesheet.css" media="screen" />
+  <script src="${request.static_url('blitz:static/bootstrap/js/jquery-1.8.3.min.js')}" type="text/javascript"></script>
+  <script src="${request.static_url('blitz:static/bootstrap/js/bootstrap.js')}" type="text/javascript"></script>
+  <!--<script src="${request.static_url('blitz:static/bootstrap/js/bootstrap-collapse.js')}" type="text/javascript"></script>-->
   <!--[if lte IE 6]>
   <link rel="stylesheet" href="${request.static_url('blitz:static/ie6.css')}" type="text/css" media="screen" charset="utf-8" />
   <![endif]-->
 </head>
 <body>
   <div id="wrap">
-    <div id="top">
-      <div class="top align-center">
+    <div id="top" style="height:130px; ">
+      <div class="top align-center" >
           <div>
+              <h1>Covenisol</h1>
               <!--<img src="${request.static_url('blitz:static/pyramid.png')}" width="750" height="169" alt="pyramid"/>-->
           </div>
       </div>
@@ -40,92 +44,128 @@
 
 
 
+
               <aside class=span3>
-                  <div>
-                      <nav id="primary-navigation" class="row">
-                          <div class="span3 tabbable">
-                              <ul class="nav nav-tabs">
-                                  <li class="active"><a href="#tab1" data-toggle="tab">Home</a></li>
-                                  <li><a href="#tab2" data-toggle="tab">Features</a></li>
-                                  <li><a href="#tab3" data-toggle="tab">About</a></li>
-                                  <li><a href="#tab4" data-toggle="tab">Contact Us</a></li>
-                              </ul>
+                  <div style="height: 100px;"></div>
+                   <!---- Partie pour les facettes ------------------------------------------>
+                  <div class="accordion" id="accordion1">
+                      <div class="accordion-group">
+                          <div class="accordion-heading">
+                              <a class="accordion-toggle" data-parent="#accordion1" data-toggle="collapse" href="#panel1"><i class="icon-chevron-right"></i>Panel 1</a>
                           </div>
-                      </nav>
-                  </div>
-                  <div>
-                      <h3>This the side bar !</h3>
-                      <p> Well this is for the feed !!!</p>
+                          <div class="accordion-body collapse" id="panel1">
+                              <div class="accordion-inner">
+                                  <p>This is accordion panel 1 content</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="accordion-group">
+                          <div class="accordion-heading">
+                              <a class="accordion-toggle" data-parent="#accordion1" data-toggle="collapse" href="#panel2"><i class="icon-chevron-right"></i>Panel 2</a>
+                          </div>
+                          <div class="accordion-body collapse" id="panel2">
+                              <div class="accordion-inner">
+                                  <p>This is accordion panel 2 content</p>
+                              </div>
+                          </div>
+                      </div>
                   </div>
               </aside>
 
 
 
+
+
               <article class="span9">
                   <nav id="primary-navigation" class="row">
-                      <div class="span12 tabbable">
+                      <!--<div class="span9 tabbable">
                           <ul class="nav nav-tabs">
                               <li class="active"><a href="#tab1" data-toggle="tab">Home</a></li>
                               <li><a href="#tab2" data-toggle="tab">Features</a></li>
                               <li><a href="#tab3" data-toggle="tab">About</a></li>
                               <li><a href="#tab4" data-toggle="tab">Contact Us</a></li>
                           </ul>
-                      </div>
+                      </div>-->
+                      <div style="height: 70px;"></div>
                   </nav>
                   <ul class="thumbnails">
-                      <li class="span3">
-                          <figure>
-                              <img src="http://placehold.it/300x200" alt="3 column placeholder" />
-                              <figcaption>
+                      <li class="span9">
+                          <div class="row">
+                          <div class="span3">
+                              <figure >
+                                  <div style="margin-top: 0px;">
+                                      <img src="http://placehold.it/300x200" alt="3 column placeholder" width="200" style="margin-top:0;" />
+                                  </div>
+                              </figure>
+                            </div>
+
+                              <div class="span6" style="margin-top:20px; margin-left: -15px;">
                                   <h5>Image 3 title</h5>
                                   <p>This is a short caption. It contains some technical language like
-                                      domain-specific terms like <a href="#"
+                                      domain-specific terms like
+                                      <br/>
+                                      <a href="#"
                                                                     class="tooltips"
                                                                     data-placement="top"
                                                                     data-trigger="hover"
                                                                     data-title="HTML: Hyper Text Markup Language"
                                               >HTML</a></p>
-                              </figcaption>
-                          </figure>
+
+                              </div>
+
+
+
+                           </div>
+
                       </li>
-                      <li class="span3">
-                          <figure>
-                              <img src="http://placehold.it/300x200" alt="3 column placeholder" />
-                              <figcaption>
-                                  <h5>Image 3 title</h5>
-                                  <p>This is a short caption. It contains some technical language like
-                                      domain-specific terms like <a href="#"
-                                                                    class="tooltips"
-                                                                    data-placement="top"
-                                                                    data-trigger="hover"
-                                                                    data-title="CSS: Cascading Style Sheets"
-                                              >CSS</a></p>
-                              </figcaption>
-                          </figure>
-                      </li>
-                      <li class="span3">
-                          <figure>
-                              <img src="http://placehold.it/300x200" alt="3 column placeholder" />
-                              <figcaption>
-                                  <h5>Image 3 title</h5>
-                                  <p>This is a short caption. It contains some technical language like
-                                      domain-specific terms like <a href="#"
-                                                                    class="tooltips"
-                                                                    data-placement="top"
-                                                                    data-trigger="hover"
-                                                                    data-title="JS: Javascript&mdash;The fresh language"
-                                              >JS</a></p>
-                              </figcaption>
-                          </figure>
-                      </li>
+
                   </ul>
+                  <ul class="thumbnails">
+                      <li class="span9">
+                          <div class="row">
+                              <div class="span3">
+                                  <figure >
+                                      <div style="margin-top: 0px;">
+                                          <img src="http://placehold.it/300x200" alt="3 column placeholder" width="200" style="margin-top:0;" />
+                                      </div>
+                                  </figure>
+                              </div>
+
+                              <div class="span6" style="margin-top:20px; margin-left: -15px;">
+                                  <h5>Image 3 title</h5>
+                                  <p>This is a short caption. It contains some technical language like
+                                      domain-specific terms like
+                                      <br/>
+                                      <a href="#"
+                                         class="tooltips"
+                                         data-placement="top"
+                                         data-trigger="hover"
+                                         data-title="HTML: Hyper Text Markup Language"
+                                              >HTML</a></p>
+
+                              </div>
+
+
+
+                          </div>
+
+                      </li>
+
+                  </ul>
+                  <div class="pagination span9" style="margin-bottom: 100px;">
+                      <ul>
+                          <li><a href="#">&laquo;</a></li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">2</a></li>
+                          <li><a href="#">3</a></li>
+                          <li><a href="#">4</a></li>
+                          <li><a href="#">&raquo;</a></li>
+                      </ul>
+                  </div>
+
               </article>
+
           </section>
-          <footer class="row">
-              <div class="span12">
-                  <h4>This is the footer !!!</h4>
-              </div>
-          </footer>
       </div>
   </div>
   <div id="footer">

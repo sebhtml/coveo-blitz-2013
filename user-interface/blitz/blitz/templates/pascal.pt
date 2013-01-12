@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal">
+<head>
+  <title>:::Covenisol Music Search:::</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+  <meta name="keywords" content="python web application" />
+  <meta name="description" content="pyramid web application" />
+  <link rel="shortcut icon" href="${request.static_url('blitz:static/favicon.ico')}" />
+  <link rel="stylesheet" href="${request.static_url('blitz:static/bootstrap/css/bootstrap.css')}" type="text/css" media="screen" title="master" charset="utf-8">
+  <link rel="stylesheet" href="${request.static_url('blitz:static/bootstrap/css/jquery-ui.css')}" type="text/css" media="screen" title="master" charset="utf-8">
+  <link rel="stylesheet" href="${request.static_url('blitz:static/bootstrap/')}" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="${request.static_url('blitz:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="http://static.pylonsproject.org/fonts/nobile/stylesheet.css" media="screen" />
+  <link rel="stylesheet" href="http://static.pylonsproject.org/fonts/neuton/stylesheet.css" media="screen" />
+  <!--[if lte IE 6]>
+  <link rel="stylesheet" href="${request.static_url('blitz:static/ie6.css')}" type="text/css" media="screen" charset="utf-8" />
+  <![endif]-->
+</head>
+<body>
+  <div id="wrap">
+    <div id="top">
+      <div class="top align-center">
+          <div>
+              <!--<img src="${request.static_url('blitz:static/pyramid.png')}" width="750" height="169" alt="pyramid"/>-->
+          </div>
+      </div>
+    </div>
+    <div id="middle">
+      <div class="middle align-center container-fluid row-fluid">
+        <p class="app-welcome">
+          <form class="form-search pagination-centered" id="form" action="/search/" method="GET">
+              <input type="text" class="input-medium search-query ui-widget" style="width:500px;" name="search" placeholder="Search by: Artist, Albums, Genre, ..." id="search" >
+               <a href="#" class="btn btn-primary" type="submit">Search</a>
+          </form>
+        </p>
+      </div>
+    </div>
+      <div class="container">
+          <section class="row">
+
+
+
+              <aside class=span3>
+                  <div>
+                      <nav id="primary-navigation" class="row">
+                          <div class="span3 tabbable">
+                              <ul class="nav nav-tabs">
+                                  <li class="active"><a href="#tab1" data-toggle="tab">Home</a></li>
+                                  <li><a href="#tab2" data-toggle="tab">Features</a></li>
+                                  <li><a href="#tab3" data-toggle="tab">About</a></li>
+                                  <li><a href="#tab4" data-toggle="tab">Contact Us</a></li>
+                              </ul>
+                          </div>
+                      </nav>
+                  </div>
+                  <div>
+                       ${structure:faces}
+                  </div>
+              </aside>
+
+
+
+              <article class="span9">
+  						${structure:results}
+              </article>
+          </section>
+          <footer class="row">
+              <div class="span12">
+                  <h4>This is the footer !!!</h4>
+              </div>
+          </footer>
+      </div>
+  </div>
+  <div id="footer">
+    <div class="footer">&copy; Copyright 2013, Covenisol.</div>
+  </div>
+</body>
+</html>
