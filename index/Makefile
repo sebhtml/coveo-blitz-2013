@@ -7,7 +7,7 @@ TARGETS=Korafle.cgi
 
 Korafle.cgi: 
 
-LIBRARY_OBJECTS=KorafleWebService.o
+LIBRARY_OBJECTS=KorafleWebService.o Mapper.o JSONParser.o JSONNode.o
 
 Korafle.cgi: Korafle_main.o $(LIBRARY_OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@

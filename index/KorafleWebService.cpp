@@ -3,7 +3,10 @@
  */
 
 #include "KorafleWebService.h"
+#include "JSONParser.h"
 
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <iostream>
 using namespace std;
@@ -21,6 +24,7 @@ or
 	cout<<"X-Powered-By: Les Jiraffes"<<endl;
 	cout<<"Access-Control-Allow-Origin: *"<<endl;
 	cout<<"Content-type: application/json\n\n";
+
 
 #if 0
 	cout<<"{"<<endl;
@@ -57,4 +61,15 @@ void KorafleWebService::search(const char*uri,const char*query){
 
 void KorafleWebService::push(const char*uri,const char*query){
 	cout<<"{\"message\": \"Thank you for your documents\" }"<<endl;
+
+        //char*requestMethod=getenv("REQUEST_METHOD");
+        int contentLength=atoi(getenv("CONTENT_LENGTH"));
+        
+        char*postData=(char*)malloc(contentLength+1);
+        size_t values=fread(postData,1,contentLength,stdin);
+
+	cout<<values<<endl;
+
+	JSONParser parser;
+	
 }
