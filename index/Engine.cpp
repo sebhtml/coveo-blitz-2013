@@ -47,7 +47,112 @@ TODO: busy waiting
 	Entry entry;
 	fetchPredicate(&entry,predicate);
 
+	Entry objectEntry;
+	fetchObject(&entry,&objectEntry,object);
+
+	Entry  subjectEntry;
+	fetchSubject(&objectEntry,&subjectEntry,object);
+
+	cout<<"Subject offset: "<<subjectEntry.getOffset()<<endl;
 }
+
+uint64_t Engine::findSubject(Entry*objectEntry,const char*subject){
+	//cout<<"findObject "<<object<<endl;
+
+	//bool debug=strcmp("name",predicate)==0;
+
+
+	uint64_t offset=objectEntry->getNextDown();
+
+	if(offset==OFFSET_NONE){
+		//if(debug)
+			//cout<<"returns OFFSET_NONE"<<endl;
+		return OFFSET_NONE;
+	}
+
+	//cout<<"will search"<<endl;
+
+	while(offset!=OFFSET_NONE){
+		
+		Entry entry;
+		//cout<<"loading @"<<offset<<endl;
+		entry.read(m_array,offset);
+		//cout<<"done loading"<<endl;
+		//cout<<entry.getContent()<<endl;
+
+		if(strcmp(entry.getContent(),subject)==0){
+			//cout<<"FOUND object"<<object<<" @"<<offset<<endl;
+			return offset;
+		}
+
+
+		//cout<<"getting next"<<endl;
+
+		//uint64_t lastGood=offset;
+		offset=entry.getNextRight();
+
+/*
+		if(debug)
+	
+*/		//
+
+	
+		//if(debug)
+			//cout<<"Current "<<lastGood<<" Next "<<offset<<endl;
+	}
+
+	return OFFSET_NONE;
+}
+
+uint64_t Engine::findObject(Entry*predicateEntry,const char*object){
+	cout<<"findObject "<<object<<endl;
+
+	//bool debug=strcmp("name",predicate)==0;
+
+
+	uint64_t offset=predicateEntry->getNextDown();
+
+	if(offset==OFFSET_NONE){
+		//if(debug)
+			//cout<<"returns OFFSET_NONE"<<endl;
+		return OFFSET_NONE;
+	}
+
+	//cout<<"will search"<<endl;
+
+	while(offset!=OFFSET_NONE){
+		
+		Entry entry;
+		//cout<<"loading @"<<offset<<endl;
+		entry.read(m_array,offset);
+		//cout<<"done loading"<<endl;
+		//cout<<entry.getContent()<<endl;
+
+		if(strcmp(entry.getContent(),object)==0){
+			//cout<<"FOUND object"<<object<<" @"<<offset<<endl;
+			return offset;
+		}
+
+
+		//cout<<"getting next"<<endl;
+
+		//uint64_t lastGood=offset;
+		offset=entry.getNextRight();
+
+/*
+		if(debug)
+	
+*/		//
+
+	
+		//if(debug)
+			//cout<<"Current "<<lastGood<<" Next "<<offset<<endl;
+	}
+
+	return OFFSET_NONE;
+}
+
+
 
 uint64_t Engine::findPredicate(const char*predicate){
 	//cout<<"findPredicate "<<predicate<<endl;
@@ -75,7 +180,7 @@ uint64_t Engine::findPredicate(const char*predicate){
 
 
 		//uint64_t lastGood=offset;
-		offset=entry.getNext();
+		offset=entry.getNextRight();
 
 /*
 		if(debug)
@@ -87,6 +192,52 @@ uint64_t Engine::findPredicate(const char*predicate){
 	}
 
 	return OFFSET_NONE;
+}
+
+void Engine::fetchSubject(Entry*objectEntry,Entry*subjectEntry,const char*subject){
+
+	//cout<<"[fetchObject"<<endl;
+
+// already have it
+	uint64_t subjectOffset=findSubject(objectEntry,subject);
+
+	if(subjectOffset!=OFFSET_NONE){
+		//cout<<"Using copy found"<<endl;
+		subjectEntry->read(m_array,subjectOffset);
+		return;
+	}
+
+// add it
+
+	addSubjectInFile(objectEntry,subject);
+
+// search it again
+	return fetchObject(objectEntry,subjectEntry,subject);
+
+	
+}
+
+void Engine::fetchObject(Entry*predicateEntry,Entry*entry,const char*object){
+
+	//cout<<"[fetchObject"<<endl;
+
+// already have it
+	uint64_t objectOffset=findObject(predicateEntry,object);
+
+	if(objectOffset!=OFFSET_NONE){
+		//cout<<"Using copy found"<<endl;
+		entry->read(m_array,objectOffset);
+		return;
+	}
+
+// add it
+
+	addObjectInFile(predicateEntry,object);
+
+// search it again
+	return fetchObject(predicateEntry,entry,object);
+
+	
 }
 
 void Engine::fetchPredicate(Entry*entry,const char*predicate){
@@ -105,6 +256,89 @@ void Engine::fetchPredicate(Entry*entry,const char*predicate){
 
 // search it again
 	return fetchPredicate(entry,predicate);
+}
+
+void Engine::addSubjectInFile(Entry*objectEntry,const char*subject){
+
+	cout<<"[addSubjectInFile]"<<endl;
+
+	if(objectEntry->getNextDown()==OFFSET_NONE){
+		
+		//cout<<"first"<<endl;
+
+		uint64_t contentOffset=getHeap();
+
+		//cout<<"will use offset "<<contentOffset<<endl;
+		addSubject(contentOffset,subject);
+
+		objectEntry->setNextDown(contentOffset);
+		objectEntry->write(m_array,objectEntry->getOffset());
+
+		//cout<<"done"<<endl;
+	}else{
+
+		//cout<<"not first"<<endl;
+		uint64_t contentOffset=getHeap();
+		//cout<<"OFFSET_PREDICATE_LAST "<<read64Integer(OFFSET_PREDICATE_LAST)<<endl;
+
+		addSubject(contentOffset,subject);
+
+		uint64_t offset=objectEntry->getNextDown();
+
+		while(1){
+			Entry entry;
+			entry.read(m_array,offset);
+			offset=entry.getNextRight();
+
+			if(offset==OFFSET_NONE){
+				entry.setNextRight(contentOffset);
+				entry.write(m_array,entry.getOffset());
+				break;
+			}
+		}
+	}
+}
+
+
+
+void Engine::addObjectInFile(Entry*predicateEntry,const char*object){
+
+	cout<<"[addObjectInFile]"<<endl;
+
+	if(predicateEntry->getNextDown()==OFFSET_NONE){
+		
+		//cout<<"first"<<endl;
+
+		uint64_t contentOffset=getHeap();
+
+		//cout<<"will use offset "<<contentOffset<<endl;
+		addObject(contentOffset,object);
+
+		predicateEntry->setNextDown(contentOffset);
+		predicateEntry->write(m_array,predicateEntry->getOffset());
+
+		//cout<<"done"<<endl;
+	}else{
+
+		//cout<<"not first"<<endl;
+		uint64_t contentOffset=getHeap();
+		//cout<<"OFFSET_PREDICATE_LAST "<<read64Integer(OFFSET_PREDICATE_LAST)<<endl;
+
+		addObject(contentOffset,object);
+
+		uint64_t offset=predicateEntry->getNextDown();
+		while(1){
+			Entry entry;
+			entry.read(m_array,offset);
+			offset=entry.getNextRight();
+
+			if(offset==OFFSET_NONE){
+				entry.setNextRight(contentOffset);
+				entry.write(m_array,entry.getOffset());
+				break;
+			}
+		}
+	}
 }
 
 void Engine::addPredicateInFile(const char*predicate){
@@ -131,8 +365,8 @@ void Engine::addPredicateInFile(const char*predicate){
 
 void Engine::open(){
 
-	//m_file="/mnt/block";
-	m_file="/mnt/block-debug";
+	m_file="/mnt/block";
+	//m_file="/mnt/block-debug";
 	
 
 	m_mapper.enableReadOperations();
@@ -201,12 +435,54 @@ uint64_t Engine::getNextOffsetForPredicate(){
 
 		lastGood=offset;
 
-		offset=entry.getNext();
+		offset=entry.getNextRight();
 	
 		//cout<<"Current "<<lastGood<<" Next "<<offset<<endl;
 	}
 
 	return lastGood;
+}
+
+void Engine::addSubject(uint64_t offset,const char*subject){
+	//cout<<endl;
+	cout<<"addSubject "<<subject<<" offset="<<offset<<endl;
+
+	if(!(offset<m_bytes)){
+		cout<<"Invalid offset"<<endl;
+		return;
+	}
+
+	Entry entry;
+	entry.build(SUBJECT,subject);
+	entry.write(m_array,offset);
+
+	uint64_t newAddress=read64Integer(OFFSET_MEMORY_HEAP)+entry.getSize();
+	setHeap(newAddress);
+
+	cout<<"addSubject entry saved."<<endl;
+
+
+}
+
+void Engine::addObject(uint64_t offset,const char*object){
+	//cout<<endl;
+	cout<<"addObject "<<object<<" offset="<<offset<<endl;
+
+	if(!(offset<m_bytes)){
+		cout<<"Invalid offset"<<endl;
+		return;
+	}
+
+	Entry entry;
+	entry.build(OBJECT,object);
+	entry.write(m_array,offset);
+
+	uint64_t newAddress=read64Integer(OFFSET_MEMORY_HEAP)+entry.getSize();
+	setHeap(newAddress);
+
+	cout<<"addObject entry saved."<<endl;
+
+
 }
 
 void Engine::addPredicate(uint64_t offset,const char*predicate,uint64_t parentOffset){
@@ -236,7 +512,7 @@ void Engine::addPredicate(uint64_t offset,const char*predicate,uint64_t parentOf
 
 		Entry parentEntry;
 		parentEntry.read(m_array,parentOffset);
-		parentEntry.setNext(offset);
+		parentEntry.setNextRight(offset);
 		
 		//cout<<"saving parent"<<endl;
 		parentEntry.write(m_array,parentOffset);
@@ -256,3 +532,5 @@ void Engine::write64Integer(uint64_t offset,uint64_t value){
 
 	memcpy(m_array+offset,&value,sizeof(uint64_t));
 }
+
+
