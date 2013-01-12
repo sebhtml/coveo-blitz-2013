@@ -9,7 +9,7 @@ _images = _data+'/BlitzDataWebService/images/'
 
 
 #_tmp = '{"facets": {"origin": {"Georgia": 1,"White Plains": 1},"type": {"albums": 32,"artists": 19},"genres": {"Alternative rock": 2,"Pop rock": 1,"Indie rock": 1}},"results": [{"id": "011_x9"} ]}'
-_tmp = '{"facets":{"FACET_0_NAME": {"KEY_0_NAME":10,"KEY_1_NAME":10,"KEY_2_NAME":10,"KEY_3_NAME":10},"FACET_1_NAME": {"KEY_0_NAME":10,"KEY_1_NAME":10,"KEY_2_NAME":10,"KEY_3_NAME":10},"FACET_2_NAME": {"KEY_0_NAME":10,"KEY_1_NAME":10,"KEY_2_NAME":10,"KEY_3_NAME":10}}, "results": [ {"id":0,"text":"Document description"},{"id":1,"text":"Document description"},{"id":2,"text":"Document description"},{"id":3,"text":"Document description"},{"id":4,"text":"Document description"},{"id":5,"text":"Document description"},{"id":6,"text":"Document description"},{"id":7,"text":"Document description"},{"id":8,"text":"Document description"},{"id":9,"text":"Document description"},{"id":10,"text":"Document description"},{"id":11,"text":"Document description"},{"id":12,"text":"Document description"},{"id":13,"text":"Document description"},{"id":14,"text":"Document description"}]} '
+_tmp = '{"facets":{"FACET_0_NAME": {"KEY_0_NAME":10,"KEY_1_NAME":10,"KEY_2_NAME":10,"KEY_3_NAME":10},"FACET_1_NAME": {"KEY_0_NAME":10,"KEY_1_NAME":10,"KEY_2_NAME":10,"KEY_3_NAME":10},"FACET_2_NAME": {"KEY_0_NAME":10,"KEY_1_NAME":10,"KEY_2_NAME":10,"KEY_3_NAME":10}}, "results": [ {"id":"011_x9","text":"Album name"},{"id":\"011_x9\","text":"Album name"},{"id":2,"text":"Album name"},{"id":3,"text":"Album name"},{"id":4,"text":"Album name"},{"id":5,"text":"Album name"},{"id":6,"text":"Album name"},{"id":7,"text":"Album name"},{"id":8,"text":"Album name"},{"id":9,"text":"Album name"},{"id":10,"text":"Album name"},{"id":11,"text":"Album name"},{"id":12,"text":"Album name"},{"id":13,"text":"Album name"},{"id":14,"text":"Album name"}]} '
 
 _SESSIONS = dict()
 
@@ -47,7 +47,7 @@ def gen_results(L):
 
     for item in L:
         name = '...'
-        text = '...'
+        text = 'album description'
         if item.has_key('id') : 
             id = item['id']
             name = str(id)
@@ -65,8 +65,8 @@ def gen_results(L):
                               </div>
 
                               <div class="span6" style="margin-top:20px; margin-left: -15px;">
-                                  <h5>%(name)s</h5>
-                                  <p>%(text)s</p>
+                                  <h3>%(name)s</h3>
+                                  <h6>%(text)s</h6>
 
                               </div>
 
