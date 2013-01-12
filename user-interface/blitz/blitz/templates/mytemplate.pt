@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal">
 <head>
-  <title>:::Covenisol Music Search:::</title>
+  <title>:::Covemifasol-do! Music Search:::</title>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
   <meta name="keywords" content="python web application" />
   <meta name="description" content="pyramid web application" />
@@ -24,7 +24,7 @@
     <div id="top" style="height:130px; ">
       <div class="top align-center" >
           <div>
-              <h1>Covenisol</h1>
+              <h1>Covemifasol-do!</h1>
               <!--<img src="${request.static_url('blitz:static/pyramid.png')}" width="750" height="169" alt="pyramid"/>-->
           </div>
       </div>
@@ -46,7 +46,7 @@
       </div>
   </div>
   <div id="footer">
-    <div class="footer">&copy; Copyright 2013, Covenisol.</div>
+    <div class="footer">&copy; Copyright 2013, Covemifasol-do!.</div>
   </div>
 </body>
 </html>
