@@ -57,18 +57,18 @@ def crawl_albums():
 
         for artist in artists:
             # Get artists data async
-            requests.get(data_service + 'albums/' + artist['id'], hooks=dict(response=callback_artist))
+            requests.get(data_service + 'albums/' + artist['id'], hooks=dict(response=callback_album))
 
 def callback_artist(request):
     data = dict(json.loads(request.content))
     data['type'] = 'artist'
-    print data
+    print data['name']
     #print trim_ends(data)
 
 def callback_album(request):
     data = dict(json.loads(request.content))
     data['type'] = 'album'
-    print data
+    print data['name']
 
 def trim_ends(object):
     print type(object)
@@ -95,7 +95,7 @@ def trim_ends(object):
 
 if __name__ == "__main__":
     start_run('Peewee')
-    
+
     artists_crawler = Process(target=crawl_artists)
     albums_crawler = Process(target=crawl_albums)
 
