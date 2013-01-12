@@ -129,4 +129,6 @@ if __name__ == "__main__":
     workers.close()
     workers.join()
 
+    stop_run()
+
     print "Took: ", time()-t
