@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal">
 <head>
-  <title>:::Covenisol Music Search:::</title>
+  <title>:::Covemifasol-do! Music Search:::</title>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
   <meta name="keywords" content="python web application" />
   <meta name="description" content="pyramid web application" />
@@ -24,7 +24,7 @@
     <div id="top" style="height:130px; ">
       <div class="top align-center" >
           <div>
-              <h1>Covenisol</h1>
+              <h1>Covemifasol-do!</h1>
               <!--<img src="${request.static_url('blitz:static/pyramid.png')}" width="750" height="169" alt="pyramid"/>-->
           </div>
       </div>
@@ -32,7 +32,7 @@
     <div id="middle">
       <div class="middle align-center container-fluid row-fluid">
         <p class="app-welcome">
-          <form class="form-search pagination-centered" id="form" action="/search" method="GET">
+          <form class="form-search pagination-centered" id="form" action="/search/" method="GET">
               <input type="text" class="input-medium search-query ui-widget" style="width:500px;" name="search" placeholder="Search by: Artist, Albums, Genre, ..." id="search" >
                <a href="#" class="btn btn-primary" type="submit">Search</a>
           </form>
@@ -54,19 +54,10 @@
 
 
               <article class="span9">
-                  <nav id="primary-navigation" class="row">
-                      <!--<div class="span9 tabbable">
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a href="#tab1" data-toggle="tab">Home</a></li>
-                              <li><a href="#tab2" data-toggle="tab">Features</a></li>
-                              <li><a href="#tab3" data-toggle="tab">About</a></li>
-                              <li><a href="#tab4" data-toggle="tab">Contact Us</a></li>
-                          </ul>
-                      </div>-->
-                      <div style="height: 70px;"></div>
-                  </nav>
-
-					${structure:results}
+		
+				<div id="results"> ${structure:results} </div>
+					
+					
                   <div class="pagination span9" style="margin-bottom: 100px;">
                       <ul>
                           <li><a href="#">&laquo;</a></li>
@@ -84,7 +75,7 @@
       </div>
   </div>
   <div id="footer">
-    <div class="footer">&copy; Copyright 2013, Covenisol.</div>
+    <div class="footer">&copy; Copyright 2013, Covemifasol-do!.</div>
   </div>
 </body>
 </html>
