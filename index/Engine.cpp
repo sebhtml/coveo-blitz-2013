@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <vector>
 #include <iostream>
 using namespace std;
 
@@ -45,13 +46,13 @@ void Engine::indexMetaData(const char*subject,const char*predicate,const char*ob
 	cout<<endl;
 
 	Entry entry;
-	fetchPredicate(&entry,predicate);
+	fetchPredicate(&entry,predicate,true);
 
 	Entry objectEntry;
-	fetchObject(&entry,&objectEntry,object);
+	fetchObject(&entry,&objectEntry,object,true);
 
 	Entry  subjectEntry;
-	fetchSubject(&objectEntry,&subjectEntry,object);
+	fetchSubject(&objectEntry,&subjectEntry,subject,true);
 
 	cout<<"Subject offset: "<<subjectEntry.getOffset()<<endl;
 
@@ -196,7 +197,7 @@ uint64_t Engine::findPredicate(const char*predicate){
 	return OFFSET_NONE;
 }
 
-void Engine::fetchSubject(Entry*objectEntry,Entry*subjectEntry,const char*subject){
+bool Engine::fetchSubject(Entry*objectEntry,Entry*subjectEntry,const char*subject,bool write){
 
 	//cout<<"[fetchObject"<<endl;
 
@@ -206,20 +207,22 @@ void Engine::fetchSubject(Entry*objectEntry,Entry*subjectEntry,const char*subjec
 	if(subjectOffset!=OFFSET_NONE){
 		//cout<<"Using copy found"<<endl;
 		subjectEntry->read(m_array,subjectOffset);
-		return;
+		return true;
 	}
 
+	if(!write)
+		return false;
 // add it
 
 	addSubjectInFile(objectEntry,subject);
 
 // search it again
-	return fetchObject(objectEntry,subjectEntry,subject);
+	return fetchObject(objectEntry,subjectEntry,subject,write);
 
 	
 }
 
-void Engine::fetchObject(Entry*predicateEntry,Entry*entry,const char*object){
+bool Engine::fetchObject(Entry*predicateEntry,Entry*entry,const char*object,bool write){
 
 	//cout<<"[fetchObject"<<endl;
 
@@ -229,35 +232,40 @@ void Engine::fetchObject(Entry*predicateEntry,Entry*entry,const char*object){
 	if(objectOffset!=OFFSET_NONE){
 		//cout<<"Using copy found"<<endl;
 		entry->read(m_array,objectOffset);
-		return;
+		return true;
 	}
+
+	if(!write)
+		return false;
 
 // add it
 
 	addObjectInFile(predicateEntry,object);
 
 // search it again
-	return fetchObject(predicateEntry,entry,object);
+	return fetchObject(predicateEntry,entry,object,write);
 
 	
 }
 
-void Engine::fetchPredicate(Entry*entry,const char*predicate){
+bool Engine::fetchPredicate(Entry*entry,const char*predicate,bool write){
 
 // already have it
 	uint64_t predicateOffset=findPredicate(predicate);
 	if(predicateOffset!=OFFSET_NONE){
 		//cout<<"Using copy found"<<endl;
 		entry->read(m_array,predicateOffset);
-		return;
+		return true;
 	}
 
+	if(!write)
+		return false;
 // add it
 
 	addPredicateInFile(predicate);
 
 // search it again
-	return fetchPredicate(entry,predicate);
+	return fetchPredicate(entry,predicate,write);
 }
 
 void Engine::addSubjectInFile(Entry*objectEntry,const char*subject){
@@ -533,4 +541,53 @@ void Engine::write64Integer(uint64_t offset,uint64_t value){
 	memcpy(m_array+offset,&value,sizeof(uint64_t));
 }
 
+void Engine::search(const char*predicate,const char*object){
+
+	cout<<"[Engine::search]"<<endl;
+
+	Entry predicateEntry;
+	if(!fetchPredicate(&predicateEntry,predicate,false)){
+		cout<<"No Predicate found!"<<endl;
+		return;
+	}
+
+	cout<<"Predicate: "<<predicateEntry.getContent()<<endl;
+
+	Entry objectEntry;
+	if(!fetchObject(&predicateEntry,&objectEntry,object,false)){
+		cout<<"No object found!"<<endl;
+		return;
+	}
+
+	cout<<"Object: "<<objectEntry.getContent()<<endl;
+
+	vector<Entry> subjects;
+	
+	getSubjects(&objectEntry,&subjects);
+
+	if(subjects.size()==0)
+		cout<<"No subject found!"<<endl;
+
+	for(int i=0;i<(int)subjects.size();i++){
+		cout<<"Subject -> "<<subjects[i].getContent()<<endl;
+	}
+}
+
+void Engine::getSubjects(Entry*objectEntry,vector<Entry>*subjects){
+	
+	cout<<"getSubjects"<<endl;
+	uint64_t offset=objectEntry->getNextDown();
+
+	while(offset!=OFFSET_NONE){
+		
+		Entry entry;
+		entry.read(m_array,offset);
+		offset=entry.getNextRight();
+
+		if(entry.getType()!=SUBJECT)
+			cout<<"invalid type"<<endl;
+
+		subjects->push_back(entry);
+	}
+}
 

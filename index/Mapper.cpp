@@ -60,7 +60,7 @@ void*Mapper::mapFile(const char*file){
 	if(m_write && m_read){
 		m_protection=PROT_READ|PROT_WRITE;
 
-		cout<<"Protection read+write"<<endl;
+		//cout<<"Protection read+write"<<endl;
 
 	}else if(m_write){
 		m_protection=PROT_WRITE;

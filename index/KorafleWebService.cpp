@@ -111,6 +111,14 @@ bool KorafleWebService::getValue(const char*query,const char*name,char*value,int
 
 void KorafleWebService::search(const char*uri,const char*query){
 	
+	Engine engine;
+	engine.open();
+
+	char qQuery[128];
+
+	getValue(query,"q",qQuery,128);
+	engine.search("q",qQuery);
+	engine.close();
 
 	int NB_FACETS = 3;
 	int NB_KEYS   = 4;
