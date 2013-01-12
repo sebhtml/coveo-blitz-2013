@@ -1,4 +1,7 @@
 
+#ifndef _Entry
+#define _Entry
+
 #define SUBJECT 0
 #define PREDICATE 1
 #define OBJECT 3
@@ -16,7 +19,16 @@ class Entry{
 public:
 
 	void write(char*m_array,uint64_t position);
+	void read(const char*m_array,uint64_t position);
 	void build(int type,const char*content);
 	int getSize();
 
+	uint64_t getNext();
+	int getType();
+	int getLength();
+	char*getContent();
+	void setNext(uint64_t value);
+
 };
+
+#endif
