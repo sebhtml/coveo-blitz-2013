@@ -83,6 +83,9 @@ def gen_results(L):
 @view_config(route_name='search', renderer='templates/pascal2.pt')
 def main_search(request):
     s = request.GET['search']
+    session = request.session
+    session['last'] = s
+    
     r = requests.get(_endpoint, params={'q':s})
     #elem = json.loads(r.content)
     D = json.loads(_tmp)
@@ -98,7 +101,14 @@ def main_search(request):
 
 @view_config(route_name='rafine', renderer='string')
 def rafine_search(request):
-    s = request.GET['search']
+    print 'rafine!'
+    session = request.session
+    if 'last' not in session: session['last'] = ''
+    
+    
+    s = session['last'] + '+' + request.GET['search']
+        
+    print request.GET['search']
     r = requests.get(_endpoint, params={'q':s})
     #elem = json.loads(r.content)
     D = json.loads(_tmp)
