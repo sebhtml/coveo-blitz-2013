@@ -82,6 +82,40 @@ void KorafleWebService::push(const char*uri,const char*query){
 	Json::Value root;   // will contains the root value after parsing.
 	
 	reader.parse(postData,postData+contentLength-1,root,false);
+
+	string id="NULL";
+
+	for(Json::ValueIterator i=root.begin();i!=root.end();i++){
+		string key=i.key().asString();
+		cout<<key<<endl;
+
+		Json::Value value=*i;
+
+		if(key=="id"){
+			id=value.asString();
+
+		}else if(key=="text"){
+			//indexMetaData(
+		}else{
+
+		}
+
+#if DEBUG1
+		if(key=="id")
+			cout<<"id="<<id<<endl;
+#endif
+
+		if(value.isString()){
+			string content=value.asString();
+			cout<<content<<endl;
+
+		}else if(value.isArray()){
+			for(Json::ValueIterator j=value.begin();j!=value.end();j++){
+				cout<<","<<(*j).asString();
+			}
+			cout<<endl;
+		}
+	}
 	
 	//node->debug();
 
