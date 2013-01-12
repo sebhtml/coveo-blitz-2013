@@ -10,3 +10,5 @@ apache2-doc
 * make
 * C++ JSON parser from Ray-Cloud-Browser (659 lines avec 'wc -l')
 * g++
+* libjsoncpp0
+* libjsoncpp-dev
