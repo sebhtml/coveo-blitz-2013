@@ -19,7 +19,7 @@ def get_artist(id):
     data['type'] = u'artist'
     data = trim_ends(data)
     index_data(data)
-#    print data['name']
+    #print data['name']
 
 def get_album(id):
     for i in xrange(max_retries):
@@ -32,7 +32,7 @@ def get_album(id):
     data['type'] = u'album'
     data = trim_ends(data)
     index_data(data)
-    #   print data['name']
+    #print data['name']
 
 def crawl_artists():
     page_size = 100
@@ -99,7 +99,7 @@ def crawl_albums():
 
 
 def index_data(data):
-    requests.post('http://ec2-50-17-15-66.compute-1.amazonaws.com:11111/Korafle.cgi/push', data=data)
+    requests.post('http://ec2-50-17-15-66.compute-1.amazonaws.com:11111/Korafle.cgi/push', data=json.dumps(data))
 
 def trim_ends(object):
     if unicode == type(object):
@@ -123,8 +123,8 @@ def stop_run():
 
 if __name__ == "__main__":
     t = time()
-    start_run('Run1test')
     workers = Pool(50)
+    start_run('Run1test')
     crawl_artists()
     crawl_albums()
     workers.close()
