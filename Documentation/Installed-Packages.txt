@@ -3,8 +3,10 @@ apache2-doc
 
 ## user interface
 
-python-pyramid
+* python-pyramid
 
 ## index
 
-C++ JSON parser from Ray-Cloud-Browser (659 lines avec 'wc -l')
+* make
+* C++ JSON parser from Ray-Cloud-Browser (659 lines avec 'wc -l')
+* g++

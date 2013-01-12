@@ -1,6 +1,7 @@
 CXX=g++
 CXXFLAGS= -O3 -Wall -march=native -pipe -std=c++98
 #CXXFLAGS=-O0 -g -D CONFIG_ASSERT -Wall -std=c++98
+config=/home/seb/coveo-blitz-2013/index/001-Apache.conf
 
 TARGETS=Korafle.cgi
 
@@ -12,8 +13,19 @@ Korafle.cgi: Korafle_main.o $(LIBRARY_OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 	chmod g-w $@
 	chmod o-w $@
+	mkdir -p DocumentRoot
+	cp Korafle.cgi DocumentRoot
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
+
+start:
+	apache2 -f $(config) -k start
+
+restart:
+	apache2 -f $(config) -k restart
+
+stop:
+	apache2 -f $(config) -k stop
 
