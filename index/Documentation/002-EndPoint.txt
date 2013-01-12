@@ -1,1 +1,2 @@
 http://ec2-50-17-15-66.compute-1.amazonaws.com:11111/Korafle.cgi/search?q=Salut
+http://ec2-50-17-15-66.compute-1.amazonaws.com:11111/Korafle.cgi/push

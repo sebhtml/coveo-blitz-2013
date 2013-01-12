@@ -8,9 +8,10 @@
  */
 int main(int argc,char**argv){
 
+	const char*requestUri=getenv("REQUEST_URI");
 	const char*queryString=getenv("QUERY_STRING");
 	KorafleWebService service;
-	service.processQuery(queryString);
+	service.processQuery(requestUri,queryString);
 
 	return 0;
 }

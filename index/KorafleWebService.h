@@ -4,6 +4,8 @@
  */
 class KorafleWebService{
 
+	void search(const char*uri,const char*query);
+	void push(const char*uri,const char*query);
 public:
-	void processQuery(const char*query);
+	void processQuery(const char*uri,const char*query);
 };
