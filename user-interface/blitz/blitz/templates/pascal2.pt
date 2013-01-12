@@ -54,19 +54,10 @@
 
 
               <article class="span9">
-                  <nav id="primary-navigation" class="row">
-                      <!--<div class="span9 tabbable">
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a href="#tab1" data-toggle="tab">Home</a></li>
-                              <li><a href="#tab2" data-toggle="tab">Features</a></li>
-                              <li><a href="#tab3" data-toggle="tab">About</a></li>
-                              <li><a href="#tab4" data-toggle="tab">Contact Us</a></li>
-                          </ul>
-                      </div>-->
-                      <div style="height: 70px;"></div>
-                  </nav>
-
-					${structure:results}
+		
+				<div id="results"> ${structure:results} </div>
+					
+					
                   <div class="pagination span9" style="margin-bottom: 100px;">
                       <ul>
                           <li><a href="#">&laquo;</a></li>
